@@ -1,0 +1,136 @@
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  ImageBackground,
+} from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { Link } from "expo-router";
+
+export default function SigninScreen() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [repeatPassword, setRepeatPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
+  return (
+    <ImageBackground
+      source={require("@/assets/images/login.png")}
+      style={styles.container}
+    >
+      <Text style={styles.title}>Parking+</Text>
+
+      <TextInput
+        style={styles.input}
+        placeholder="Username"
+        placeholderTextColor="#888"
+        value={username}
+        onChangeText={setUsername}
+      />
+
+      <View style={styles.passwordContainer}>
+        <TextInput
+          style={styles.inputPassword}
+          placeholder="Password"
+          placeholderTextColor="#888"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry={!showPassword}
+        />
+        <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+          <Ionicons
+            name={showPassword ? "eye" : "eye-off"}
+            size={24}
+            color="gray"
+          />
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.passwordContainer}>
+        <TextInput
+          style={styles.inputPassword}
+          placeholder="Repeat Password"
+          placeholderTextColor="#888"
+          value={repeatPassword}
+          onChangeText={setRepeatPassword}
+          secureTextEntry={!showPassword}
+        />
+        <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+          <Ionicons
+            name={showPassword ? "eye" : "eye-off"}
+            size={24}
+            color="gray"
+          />
+        </TouchableOpacity>
+      </View>
+
+      <TouchableOpacity style={styles.loginButton}>
+        <Link href="/(user)" style={styles.loginButtonText}>
+          Register
+        </Link>
+        {/* <Text style={styles.loginButtonText}>Register</Text> */}
+      </TouchableOpacity>
+
+      <TouchableOpacity>
+        <Link href="/login" style={styles.createAccount}>
+          Use existing account
+        </Link>
+      </TouchableOpacity>
+    </ImageBackground>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#007FA4",
+  },
+  title: {
+    fontSize: 32,
+    color: "#fff",
+    fontWeight: "bold",
+    marginBottom: 40,
+  },
+  input: {
+    width: "80%",
+    backgroundColor: "#fff",
+    padding: 10,
+    borderRadius: 8,
+    marginBottom: 15,
+  },
+  passwordContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    width: "80%",
+    backgroundColor: "#fff",
+    padding: 10,
+    borderRadius: 8,
+    marginBottom: 20,
+  },
+  inputPassword: {
+    flex: 1,
+  },
+  loginButton: {
+    backgroundColor: "#000",
+    padding: 15,
+    borderRadius: 8,
+    width: "80%",
+    alignItems: "center",
+    marginBottom: 20,
+  },
+  loginButtonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  createAccount: {
+    color: "#fff",
+    fontSize: 14,
+    textDecorationLine: "underline",
+  },
+});
