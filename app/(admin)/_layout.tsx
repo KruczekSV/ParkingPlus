@@ -2,12 +2,8 @@ import { Tabs } from "expo-router";
 import React from "react";
 
 import { TabBarIcon } from "@/components/navigation/TabBarIcon";
-import { Colors } from "@/constants/Colors";
-import { useColorScheme } from "@/hooks/useColorScheme";
 
 export default function AdminLayout() {
-  const colorScheme = useColorScheme();
-
   return (
     <Tabs
       screenOptions={{
@@ -33,7 +29,7 @@ export default function AdminLayout() {
         }}
       />
       <Tabs.Screen
-        name="history"
+        name="historyPage"
         options={{
           title: "History",
           tabBarIcon: ({ color, focused }) => (

@@ -41,7 +41,10 @@ function RootLayoutContent() {
       <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
         <GestureHandlerRootView style={{ flex: 1 }}>
           <Stack>
-            <Stack.Screen name="login" options={{ headerShown: false }} />
+            <Stack.Screen
+              name="login"
+              options={{ headerShown: false, gestureEnabled: false }}
+            />
             <Stack.Screen name="signin" options={{ headerShown: false }} />
             <Stack.Screen
               name="(admin)"

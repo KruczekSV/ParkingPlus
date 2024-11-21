@@ -52,7 +52,7 @@ const SlotDetailsModal = ({
             </View>
             {selectedSlot.imageUrl && (
               <Image
-                source={require("@/assets/images/cars/car1.jpg")} // upewnij się, że importujesz poprawnie
+                source={require("@/assets/images/cars/car1.jpg")}
                 style={styles.carImage}
               />
             )}

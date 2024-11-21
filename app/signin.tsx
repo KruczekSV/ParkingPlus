@@ -6,15 +6,39 @@ import {
   TouchableOpacity,
   StyleSheet,
   ImageBackground,
+  Alert,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
+import { useAuth } from "@/hooks/api/useAuth";
 
 export default function SigninScreen() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [repeatPassword, setRepeatPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const { auth } = useAuth();
+
+  const handleRegister = async () => {
+    if (!username || !password || !passwordConfirm) {
+      Alert.alert("Error", "All fields are required!");
+      return;
+    }
+
+    if (password !== passwordConfirm) {
+      Alert.alert("Error", "Passwords do not match!");
+      return;
+    }
+
+    try {
+      await auth.signup.execute(username, password, passwordConfirm);
+      console.log("Użytkownik zarejestrowany pomyślnie");
+      await auth.signin.execute(username, password);
+      console.log("Użytkownik zalogowany pomyślnie");
+    } catch (err) {
+      console.log("Błąd przy rejestracji");
+    }
+  };
 
   return (
     <ImageBackground
@@ -54,8 +78,8 @@ export default function SigninScreen() {
           style={styles.inputPassword}
           placeholder="Repeat Password"
           placeholderTextColor="#888"
-          value={repeatPassword}
-          onChangeText={setRepeatPassword}
+          value={passwordConfirm}
+          onChangeText={setPasswordConfirm}
           secureTextEntry={!showPassword}
         />
         <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
@@ -67,11 +91,8 @@ export default function SigninScreen() {
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity style={styles.loginButton}>
-        <Link href="/(user)" style={styles.loginButtonText}>
-          Register
-        </Link>
-        {/* <Text style={styles.loginButtonText}>Register</Text> */}
+      <TouchableOpacity style={styles.loginButton} onPress={handleRegister}>
+        <Text style={styles.loginButtonText}>Register</Text>
       </TouchableOpacity>
 
       <TouchableOpacity>

@@ -5,6 +5,8 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: "#4D5563",
     padding: 20,
+    flexDirection: "column",
+    justifyContent: "space-around",
   },
   card: {
     backgroundColor: "#fff",

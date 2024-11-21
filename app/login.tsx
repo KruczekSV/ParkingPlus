@@ -6,14 +6,37 @@ import {
   TouchableOpacity,
   StyleSheet,
   ImageBackground,
+  Alert,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
+import { useAuth } from "@/hooks/api/useAuth";
 
 export default function LoginScreen() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
+  const { auth } = useAuth();
+  // const [api, contextHolder] = notification.useNotification();
+
+  // const notify = (type: NotificationType) => {
+  //   api[type]({ message: "The icon suggests current status!" });
+  // };
+
+  const handleLogin = async () => {
+    if (!username || !password) {
+      Alert.alert("Error", "All fields are required!");
+      return;
+    }
+
+    try {
+      await auth.signin.execute(username, password);
+      console.log("Użytkownik zalogowany pomyślnie");
+    } catch (err) {
+      console.log("Błąd przy logowaniu");
+    }
+  };
 
   return (
     <ImageBackground
@@ -48,11 +71,8 @@ export default function LoginScreen() {
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity style={styles.loginButton}>
-        <Link href="/(admin)" style={styles.loginButtonText}>
-          Login
-        </Link>
-        {/* <Text style={styles.loginButtonText}>Login</Text> */}
+      <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
+        <Text style={styles.loginButtonText}>Login</Text>
       </TouchableOpacity>
 
       <TouchableOpacity>
