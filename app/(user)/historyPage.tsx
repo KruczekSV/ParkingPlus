@@ -1,68 +1,83 @@
 import React, { useState, useEffect } from "react";
-import { View, FlatList } from "react-native";
+import { View, FlatList, RefreshControl } from "react-native";
+import { useRouter, useFocusEffect } from "expo-router";
 import styles from "@/styles/parking/history.styles";
 import FilterBar from "@/components/history/FilterBar";
 import HistoryCard from "@/components/history/HistoryCard";
-
-type CarData = {
-  id: number;
-  spotNumber: number;
-  licensePlate: string;
-  entryDate: string;
-  entryTime: string;
-  status: string;
-  duration?: string;
-  cost?: number;
-};
-
-const sampleData: CarData[] = [
-  {
-    id: 1,
-    spotNumber: 1,
-    licensePlate: "CT2180X",
-    entryDate: "05.10.2024",
-    entryTime: "14:18",
-    status: "Still in parking",
-  },
-  {
-    id: 2,
-    spotNumber: 31,
-    licensePlate: "EZG69708",
-    entryDate: "05.10.2024",
-    entryTime: "14:18",
-    status: "Left",
-    duration: "0h 44m",
-    cost: 6,
-  },
-];
+import { useParkingAction } from "@/hooks/api/useParkingAction";
+import { IParkingAction } from "@/types/IParkingAction";
+import { ParkingActionStatus } from "@/types/IParkingActionStatus";
+import { useStorage } from "@/hooks/api/useStorage";
 
 export default function HistoryPage() {
-  const [data, setData] = useState<CarData[]>(sampleData);
-  const [filteredData, setFilteredData] = useState<CarData[]>(sampleData);
-  const [status, setStatus] = useState<string>("");
+  const [filteredData, setFilteredData] = useState<IParkingAction[]>();
+  const [status, setStatus] = useState<ParkingActionStatus>(
+    ParkingActionStatus.Any
+  );
   const [spot, setSpot] = useState<string>("");
   const [plate, setPlate] = useState<string>("");
   const [date, setDate] = useState<Date | null>(null);
+  const [refreshing, setRefreshing] = useState(false);
+  const { parkingAction } = useParkingAction();
+  const [data, setData] = useState<IParkingAction[]>([]);
+  const storage = useStorage();
 
-  // Funkcja filtrująca
+  const {
+    execute: getAllParkingActions,
+    loading: loadingParkingActions,
+    error: errorParkingActions,
+    value: ParkingActions,
+  } = parkingAction.getAll;
+
+  async function fetchData() {
+    setData([]);
+    await getAllParkingActions();
+    await fetchUser();
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  async function fetchUser() {
+    const user = await storage.getJSON("user");
+  }
+
+  useEffect(() => {
+    if (ParkingActions) {
+      setData(ParkingActions);
+    }
+  }, [ParkingActions]);
+
   useEffect(() => {
     const filtered = data.filter((item) => {
       const matchesSpot = spot
-        ? item.spotNumber.toString().includes(spot)
+        ? item.parkingSpaceNumber.toString().includes(spot)
         : true;
-      const matchesPlate = plate ? item.licensePlate.includes(plate) : true;
+      const matchesPlate = plate
+        ? item.carRegistrationPlate.includes(plate)
+        : true;
       const matchesStatus = status
-        ? item.status === status || status === "any"
+        ? item.status === status || status === ParkingActionStatus.Any
         : true;
       const matchesDate = date
-        ? item.entryDate === date.toLocaleDateString("en-GB")
+        ? new Date(item.parkTime).toLocaleDateString("en-GB") ===
+          date.toLocaleDateString("en-GB")
         : true;
       return matchesSpot && matchesPlate && matchesStatus && matchesDate;
     });
     setFilteredData(filtered);
   }, [spot, plate, status, date, data]);
 
-  const renderCard = ({ item }: { item: CarData }) => <HistoryCard {...item} />;
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await fetchData();
+    setRefreshing(false);
+  };
+
+  const renderCard = ({ item }: { item: IParkingAction }) => (
+    <HistoryCard {...item} />
+  );
 
   return (
     <View style={styles.container}>
@@ -83,6 +98,9 @@ export default function HistoryPage() {
         renderItem={renderCard}
         contentContainerStyle={styles.cardList}
         numColumns={2}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
       />
     </View>
   );

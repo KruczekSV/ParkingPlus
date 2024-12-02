@@ -25,6 +25,7 @@ export default function LoginScreen() {
   // };
 
   const handleLogin = async () => {
+    console.log("logowanie");
     if (!username || !password) {
       Alert.alert("Error", "All fields are required!");
       return;

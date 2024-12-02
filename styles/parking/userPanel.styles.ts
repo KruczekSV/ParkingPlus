@@ -1,12 +1,18 @@
 import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
+  scroll: {
+    backgroundColor: "#4D5563",
+    width: "100%",
+    height: "100%",
+  },
   container: {
     flex: 1,
     backgroundColor: "#4D5563",
     padding: 20,
     flexDirection: "column",
-    justifyContent: "space-around",
+    gap: 20,
+    height: "100%",
   },
   card: {
     backgroundColor: "#fff",

@@ -6,29 +6,28 @@ import { useStorage } from "./useStorage";
 import { IUser } from "@/types/IUser";
 
 export const useApi = (): { api: IApi } => {
-  const { storage } = useStorage();
+  const storage = useStorage();
 
-  useEffect(() => {
-    const setupInterceptor = async () => {
-      const user: IUser | null = await storage.async.getJSON<IUser>("user");
+  // useEffect(() => {
+  //   const setupInterceptor = async () => {
+  //     const user: IUser | null = await storage.getJSON<IUser>("user");
+  //     const interceptor = axios.interceptors.request.use(
+  //       (config) => {
+  //         if (user && user.accessToken) {
+  //           config.headers["Authorization"] = `Bearer ${user.accessToken}`;
+  //         }
+  //         return config;
+  //       },
+  //       (error) => Promise.reject(error)
+  //     );
 
-      const interceptor = axios.interceptors.request.use(
-        (config) => {
-          if (user && user.accessToken) {
-            config.headers["Authorization"] = `Bearer ${user.accessToken}`;
-          }
-          return config;
-        },
-        (error) => Promise.reject(error)
-      );
+  //     return () => {
+  //       axios.interceptors.request.eject(interceptor);
+  //     };
+  //   };
 
-      return () => {
-        axios.interceptors.request.eject(interceptor);
-      };
-    };
-
-    setupInterceptor();
-  }, [storage]);
+  //   setupInterceptor();
+  // }, [storage]);
 
   const api: IApi = {
     get: useCallback(
@@ -40,7 +39,7 @@ export const useApi = (): { api: IApi } => {
           );
           return response.data;
         } catch (error) {
-          console.error("GET REQUEST ERROR", error);
+          // console.error("GET REQUEST ERROR", error);
           throw error;
         }
       },
@@ -61,7 +60,7 @@ export const useApi = (): { api: IApi } => {
           );
           return response.data;
         } catch (error) {
-          console.error("POST REQUEST ERROR", error);
+          // console.error("POST REQUEST ERROR", error);
           throw error;
         }
       },
@@ -82,7 +81,7 @@ export const useApi = (): { api: IApi } => {
           );
           return response.data;
         } catch (error) {
-          console.error("PUT REQUEST ERROR", error);
+          // console.error("PUT REQUEST ERROR", error);
           throw error;
         }
       },
@@ -98,7 +97,7 @@ export const useApi = (): { api: IApi } => {
           );
           return response.data;
         } catch (error) {
-          console.error("DELETE REQUEST ERROR", error);
+          // console.error("DELETE REQUEST ERROR", error);
           throw error;
         }
       },

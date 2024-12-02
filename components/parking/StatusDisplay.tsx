@@ -29,13 +29,13 @@ const StatusDisplay = ({ time, freeCount, takenCount }: StatusDisplayProps) => {
           }}
         >
           <Text style={styles.date}>
-            {time.toLocaleDateString("en-US", {
+            {time.toLocaleDateString("en-GB", {
               month: "long",
               day: "numeric",
             })}
           </Text>
           <Text style={styles.date}>
-            {time.toLocaleDateString("en-US", {
+            {time.toLocaleDateString("en-GB", {
               year: "numeric",
             })}
           </Text>

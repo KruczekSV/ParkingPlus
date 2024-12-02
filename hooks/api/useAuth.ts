@@ -19,7 +19,7 @@ export interface IRegisterResponse {
 export const useAuth = () => {
   const [user, setUser] = useState<IUser | null>(null);
   const router = useRouter();
-  const { storage } = useStorage();
+  const storage = useStorage();
   const { api } = useApi();
 
   const signin = async (username: string, password: string) => {
@@ -32,12 +32,13 @@ export const useAuth = () => {
     }
     const user = response.user;
     user.accessToken = response.accessToken;
-    console.log(user);
-    await storage.async.setJSON("user", user);
+    await storage.setJSON("user", user);
     setUser(user);
     axios.defaults.headers.common[
       "Authorization"
     ] = `Bearer ${response.accessToken}`;
+    console.log(response.accessToken);
+    console.log("test: ", axios.defaults.headers.common["Authorization"]);
     if (response.user.userRole === "admin") {
       router.push("/(admin)");
     } else {
@@ -64,13 +65,13 @@ export const useAuth = () => {
     try {
       delete axios.defaults.headers.common["Authorization"];
 
-      await storage.async.remove("user");
+      await storage.clear();
 
       setUser(null);
 
       router.push("/login");
     } catch (error) {
-      console.error("Error during signout:", error);
+      // console.error("Error during signout:", error);
     }
   };
 

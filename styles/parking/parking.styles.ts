@@ -110,4 +110,82 @@ export default StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
   },
+  //MODAL
+
+  // container: {
+  //   flex: 1,
+  //   justifyContent: "center",
+  //   alignItems: "center",
+  //   backgroundColor: "#f0f0f0",
+  // },
+  button: {
+    backgroundColor: "#000",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+  },
+  buttonText: {
+    color: "#fff",
+    fontSize: 16,
+  },
+  modal: {
+    backgroundColor: "#fff",
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 20,
+  },
+  handle: {
+    backgroundColor: "#ccc",
+    width: 40,
+    height: 5,
+    borderRadius: 2.5,
+    alignSelf: "center",
+    marginBottom: 10,
+  },
+  modalContent: {
+    paddingHorizontal: 20,
+    height: 200,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-around",
+    paddingBottom: 50,
+  },
+  modalTitle: {
+    fontSize: 30,
+    fontWeight: "bold",
+  },
+  modalDescription: {
+    fontSize: 16,
+    fontWeight: "semibold",
+    // color: "#666",
+    marginBottom: 20,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: 50,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    fontSize: 16,
+    width: "50%",
+  },
+  addButton: {
+    backgroundColor: "#000",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    width: "40%",
+  },
+  addButtonText: {
+    color: "#fff",
+    fontSize: 16,
+  },
+  inputAndButton: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-around",
+  },
 });

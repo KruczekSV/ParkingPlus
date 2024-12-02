@@ -10,10 +10,11 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Ionicons } from "@expo/vector-icons";
 import DropDownPicker from "react-native-dropdown-picker";
 import styles from "@/styles/history/FilterBar";
+import { ParkingActionStatus } from "@/types/IParkingActionStatus";
 
 type FilterBarProps = {
-  status: string;
-  setStatus: React.Dispatch<React.SetStateAction<string>>;
+  status: ParkingActionStatus;
+  setStatus: React.Dispatch<React.SetStateAction<ParkingActionStatus>>;
   spot: string;
   setSpot: (value: string) => void;
   plate: string;
@@ -36,8 +37,8 @@ export default function FilterBar({
   const [open, setOpen] = useState(false);
   const [items, setItems] = useState([
     { label: "Any", value: "any" },
-    { label: "Still in parking", value: "Still in parking" },
-    { label: "Left", value: "Left" },
+    { label: "Still in parking", value: ParkingActionStatus.Pending },
+    { label: "Left", value: ParkingActionStatus.Paid },
   ]);
 
   const showDatePicker = () => setDatePickerVisibility(true);
@@ -115,7 +116,7 @@ export default function FilterBar({
           setDate(null);
           setPlate("");
           setSpot("");
-          setStatus("");
+          setStatus(ParkingActionStatus.Any);
         }}
       >
         <Ionicons name="close-outline" size={20} color="#666" />

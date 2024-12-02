@@ -18,7 +18,7 @@ export default function ProfileScreen() {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [user, setUser] = useState<IUser>();
   const router = useRouter();
-  const { storage } = useStorage();
+  const storage = useStorage();
   const { auth } = useAuth();
 
   const handleLogout = () => {
@@ -28,20 +28,20 @@ export default function ProfileScreen() {
         console.log("User logged out successfully");
       })
       .catch((error) => {
-        console.error("Error during logout:", error);
+        // console.error("Error during logout:", error);
       });
   };
 
   useEffect(() => {
     const fetchUser = async () => {
-      const user = await storage.async.getJSON<IUser>("user");
+      const user = await storage.getJSON<IUser>("user");
       if (user) {
         setUser(user);
       }
     };
 
     fetchUser();
-  }, [storage]);
+  }, []);
   return (
     <ImageBackground
       source={require("@/assets/images/login.png")}

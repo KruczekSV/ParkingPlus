@@ -1,10 +1,26 @@
 import { Tabs } from "expo-router";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { TabBarIcon } from "@/components/navigation/TabBarIcon";
 import { useColorScheme } from "@/hooks/useColorScheme";
+import { useStorage } from "@/hooks/api/useStorage";
+import { IUser } from "@/types/IUser";
 
 export default function UserLayout() {
+  const storage = useStorage();
+  const [user, setUser] = useState<IUser>();
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const user = await storage.getJSON<IUser>("user");
+      if (user) {
+        setUser(user);
+      }
+    };
+
+    fetchUser();
+  }, []);
+
   return (
     <Tabs
       screenOptions={{
@@ -43,6 +59,7 @@ export default function UserLayout() {
             />
           ),
         }}
+        key={user?.id}
       />
       <Tabs.Screen
         name="profile"
