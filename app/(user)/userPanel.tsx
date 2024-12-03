@@ -123,7 +123,7 @@ export default function DashboardScreen() {
       style={styles.scroll}
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-      } // Dodanie funkcji odświeżania
+      }
     >
       <View style={styles.container}>
         <BalanceSection onCarAction={update} Funds={Funds} />

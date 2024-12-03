@@ -111,13 +111,6 @@ export default StyleSheet.create({
     fontWeight: "bold",
   },
   //MODAL
-
-  // container: {
-  //   flex: 1,
-  //   justifyContent: "center",
-  //   alignItems: "center",
-  //   backgroundColor: "#f0f0f0",
-  // },
   button: {
     backgroundColor: "#000",
     paddingVertical: 10,
@@ -158,7 +151,6 @@ export default StyleSheet.create({
   modalDescription: {
     fontSize: 16,
     fontWeight: "semibold",
-    // color: "#666",
     marginBottom: 20,
   },
   input: {
@@ -169,6 +161,7 @@ export default StyleSheet.create({
     paddingHorizontal: 15,
     fontSize: 16,
     width: "50%",
+    color: "black",
   },
   addButton: {
     backgroundColor: "#000",

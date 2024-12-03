@@ -65,6 +65,7 @@ const AddCarModal = ({ modalizeRef, onCarAction }: SlotDetailsModalProps) => {
               style={styles.input}
               value={registrationPlate}
               onChangeText={setRegistrationPlate}
+              placeholderTextColor={"#666"}
             />
             <TouchableOpacity style={styles.addButton} onPress={handleAddCar}>
               <Text style={styles.addButtonText}>Add</Text>

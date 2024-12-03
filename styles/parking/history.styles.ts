@@ -51,7 +51,7 @@ export default StyleSheet.create({
     borderRadius: 10,
     padding: 15,
     margin: 7,
-    width: "45%", // Ustawienie szerokości dla dwóch kolumn
+    width: "45%",
   },
   spotNumberContainer: {
     width: 30,

@@ -9,7 +9,6 @@ import { ParkingActionStatus } from "@/types/IParkingActionStatus";
 import { useStorage } from "@/hooks/api/useStorage";
 
 export default function HistoryPage() {
-  // const [data, setData] = useState<CarData[]>(sampleData);
   const [filteredData, setFilteredData] = useState<IParkingAction[]>();
   const [status, setStatus] = useState<ParkingActionStatus>(
     ParkingActionStatus.Any

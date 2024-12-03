@@ -34,7 +34,6 @@ export default function AdminLayout() {
           title: "History",
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon
-              // name={focused ? "ticket" : "ticket-outline"}
               name={focused ? "receipt" : "receipt-outline"}
               color={color}
             />

@@ -45,19 +45,16 @@ export default StyleSheet.create({
   infoRow: {
     display: "flex",
     flexDirection: "row",
-    // backgroundColor: "red",
   },
   infoColumn: {
     display: "flex",
     flexDirection: "column",
     width: "59%",
-    // backgroundColor: "blue",
   },
   infoColumn2: {
     display: "flex",
     flexDirection: "column",
     width: "41%",
-    // backgroundColor: "yellow",
   },
   dateTime: {
     gap: 50,
@@ -68,7 +65,6 @@ export default StyleSheet.create({
   costAndDuration: {
     display: "flex",
     flexDirection: "column",
-    // justifyContent: "space-between",
     alignItems: "flex-end",
   },
   duration: {

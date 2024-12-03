@@ -24,11 +24,9 @@ export default function ProfileScreen() {
     auth
       .signout()
       .then(() => {
-        console.log("User logged out successfully");
+        console.log("Użytkownik wylogowany pomyślnie");
       })
-      .catch((error) => {
-        // console.error("Error during logout:", error);
-      });
+      .catch((error) => {});
   };
 
   useEffect(() => {

@@ -18,14 +18,8 @@ export default function LoginScreen() {
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
   const { auth } = useAuth();
-  // const [api, contextHolder] = notification.useNotification();
-
-  // const notify = (type: NotificationType) => {
-  //   api[type]({ message: "The icon suggests current status!" });
-  // };
 
   const handleLogin = async () => {
-    console.log("logowanie");
     if (!username || !password) {
       Alert.alert("Error", "All fields are required!");
       return;

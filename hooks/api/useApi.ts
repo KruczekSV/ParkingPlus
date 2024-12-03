@@ -8,27 +8,6 @@ import { IUser } from "@/types/IUser";
 export const useApi = (): { api: IApi } => {
   const storage = useStorage();
 
-  // useEffect(() => {
-  //   const setupInterceptor = async () => {
-  //     const user: IUser | null = await storage.getJSON<IUser>("user");
-  //     const interceptor = axios.interceptors.request.use(
-  //       (config) => {
-  //         if (user && user.accessToken) {
-  //           config.headers["Authorization"] = `Bearer ${user.accessToken}`;
-  //         }
-  //         return config;
-  //       },
-  //       (error) => Promise.reject(error)
-  //     );
-
-  //     return () => {
-  //       axios.interceptors.request.eject(interceptor);
-  //     };
-  //   };
-
-  //   setupInterceptor();
-  // }, [storage]);
-
   const api: IApi = {
     get: useCallback(
       async <T>(path: string, config: AxiosRequestConfig = {}): Promise<T> => {

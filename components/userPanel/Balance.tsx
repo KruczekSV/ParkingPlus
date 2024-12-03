@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, Modal, TextInput } from "react-native";
 import styles from "@/styles/userPanel/Balance";
-import { IAmount, useUser } from "@/hooks/api/useUser";
-import AddFundsModal from "./AddFundsModal";
+import { useUser } from "@/hooks/api/useUser";
 import { StyleSheet } from "react-native";
 
 type BalanceProps = {
@@ -28,7 +27,6 @@ export default function BalanceSection({ onCarAction, Funds }: BalanceProps) {
     try {
       const payload = { amount };
       await addFunds(payload);
-      console.log("Zasilono konto");
       onCarAction();
       setModalVisible(false);
       setAmount("");
@@ -40,7 +38,6 @@ export default function BalanceSection({ onCarAction, Funds }: BalanceProps) {
   useEffect(() => {
     if (Funds) {
       setData(Funds);
-      console.log(Funds);
     } else {
       setData(0);
     }
@@ -130,7 +127,7 @@ const modalStyles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.5)", // Półprzezroczyste tło
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
   modalContent: {
     backgroundColor: "#FFFFFF",

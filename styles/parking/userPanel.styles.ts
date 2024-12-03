@@ -1,4 +1,6 @@
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
+
+const { height: screenHeight } = Dimensions.get("window");
 
 export default StyleSheet.create({
   scroll: {
@@ -12,7 +14,7 @@ export default StyleSheet.create({
     padding: 20,
     flexDirection: "column",
     gap: 20,
-    height: "100%",
+    minHeight: screenHeight - 130,
   },
   card: {
     backgroundColor: "#fff",

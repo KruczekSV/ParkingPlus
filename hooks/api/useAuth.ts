@@ -37,8 +37,6 @@ export const useAuth = () => {
     axios.defaults.headers.common[
       "Authorization"
     ] = `Bearer ${response.accessToken}`;
-    console.log(response.accessToken);
-    console.log("test: ", axios.defaults.headers.common["Authorization"]);
     if (response.user.userRole === "admin") {
       router.push("/(admin)");
     } else {

@@ -34,7 +34,6 @@ export default function SigninScreen() {
       await auth.signup.execute(username, password, passwordConfirm);
       console.log("Użytkownik zarejestrowany pomyślnie");
       await auth.signin.execute(username, password);
-      console.log("Użytkownik zalogowany pomyślnie");
     } catch (err) {
       console.log("Błąd przy rejestracji");
     }
